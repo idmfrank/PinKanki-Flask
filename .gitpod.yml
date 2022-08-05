@@ -7,6 +7,14 @@ tasks:
       before: pipenv --three
       init: pipenv install flask
       
+    - name: RunPyYaml
+      before: pipenv --three
+      init: pipenv install pyyaml
+
+    - name: RunRequests
+      before: pipenv --three
+      init: pipenv install requests
+
     - name: StartUpApp
       init: pyenv shell 3.8.13
       command: pipenv run python src/app.py

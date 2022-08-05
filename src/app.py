@@ -1,6 +1,6 @@
+from flask import Flask, jsonify
 import yaml, requests, os
 
-from flask import Flask, jsonify
 app = Flask(__name__)
 
 
@@ -30,7 +30,7 @@ auth_body['UserDomain'] = str(os.environ.get('ARCH_DOMAIN') or '') # UserDomain 
 auth_body['Password'] = os.environ['ARCH_PWD']
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET'])
 def login():
     login_url = os.environ['ARCH_HOST'] + config['Resources']['Login']
 
@@ -44,6 +44,28 @@ def login():
 
     # and then you can return it to the front end in the response body like this
     return json_text
+
+@app.route('/users', methods=['GET'])
+def users():
+    login_url = os.environ['ARCH_HOST'] + config['Resources']['Login']
+
+    r = requests.post(login_url, json=auth_body)
+
+    #print(u.json())
+    SessionToken = r.json()['RequestedObject']['SessionToken']
+
+    # print(r.status_code)
+    # print(r.json())
+    user_url = os.environ['ARCH_HOST'] + config['Resources']['User']
+    u = requests.get(user_url, headers={"Authorization": "Archer session-id=" + SessionToken})
+
+    json_text = jsonify(u.json())
+
+    # and then you can return it to the front end in the response body like this
+    return json_text
+
+
+
 
 # These two lines should always be at the end of your app.py file.
 if __name__ == '__main__':
