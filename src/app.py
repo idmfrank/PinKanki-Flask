@@ -1,5 +1,8 @@
+import yaml, requests, os
+
 from flask import Flask, jsonify
 app = Flask(__name__)
+
 
 @app.route('/hello', methods=['GET'])
 def hello():
@@ -12,6 +15,35 @@ def hello():
     # and then you can return it to the front end in the response body like this
     return json_text
 
+
+# Load config
+with open('config.yml', 'r') as file:
+    config = yaml.safe_load(file)
+
+# Get an auth token
+
+# Build request body
+auth_body = {}
+auth_body['InstanceName'] = os.environ['ARCH_INSTANCE']
+auth_body['Username'] = os.environ['ARCH_USER']
+auth_body['UserDomain'] = str(os.environ.get('ARCH_DOMAIN') or '') # UserDomain should be empty string not 'None'
+auth_body['Password'] = os.environ['ARCH_PWD']
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    login_url = os.environ['ARCH_HOST'] + config['Resources']['Login']
+
+    r = requests.post(login_url, json=auth_body)
+
+    # print(r.status_code)
+    # print(r.json())
+
+    SessionToken = r.json()['RequestedObject']['SessionToken']
+    json_text = jsonify(r.json())
+
+    # and then you can return it to the front end in the response body like this
+    return json_text
 
 # These two lines should always be at the end of your app.py file.
 if __name__ == '__main__':
