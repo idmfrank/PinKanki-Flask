@@ -4,8 +4,8 @@ image:
 tasks: 
 
     - name: RunFlask
-      init: pipenv --three
-      command: pipenv install flask
+      before: pipenv --three
+      init: pipenv install flask
       
     - name: StartUpApp
       init: pyenv shell 3.8.13
