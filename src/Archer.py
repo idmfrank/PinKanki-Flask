@@ -16,7 +16,7 @@ class Archer:
         self.session_token = None
 
     def __str__(self):
-        return f'ArcherAuth({self.session_token})'
+        return f'Archer({self.session_token})'
 
     def login(self):
         """Attempt to login."""
