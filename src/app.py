@@ -59,7 +59,7 @@ def users():
     user_url = os.environ['ARCH_HOST'] + config['Resources']['User']
     u = requests.get(user_url, headers={"Authorization": "Archer session-id=" + SessionToken})
 
-    json_text = jsonify(u.json())
+    json_text = jsonify(r.json())
 
     # and then you can return it to the front end in the response body like this
     return json_text
