@@ -41,6 +41,11 @@ class Archer:
             headers={"Authorization": "Archer session-id=" + self.session_token})
         return r.json()
 
+    def getUserContacts(self):
+        r = requests.get(os.environ['ARCH_HOST'] + self.config['Resources']['UserContact'],
+            headers={"Authorization": "Archer session-id=" + self.session_token})
+        return r.json()        
+
     def getGroups(self):
         group_url = os.environ['ARCH_HOST'] + self.config['Resources']['Group']
         r = requests.get(group_url, headers={"Authorization": "Archer session-id=" + self.session_token})
@@ -51,3 +56,12 @@ class Archer:
         r = requests.get(role_url, headers={"Authorization": "Archer session-id=" + self.session_token})
         return r.json()
 
+    def getGroupMemberships(self):
+        role_url = os.environ['ARCH_HOST'] + self.config['Resources']['GroupMembership']
+        r = requests.get(role_url, headers={"Authorization": "Archer session-id=" + self.session_token})
+        return r.json()
+
+    def getRoleMemberships(self):
+        role_url = os.environ['ARCH_HOST'] + self.config['Resources']['RoleMembership']
+        r = requests.get(role_url, headers={"Authorization": "Archer session-id=" + self.session_token})
+        return r.json()

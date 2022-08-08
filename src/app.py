@@ -32,6 +32,15 @@ def users():
     a.logout()
     return users
 
+@app.route('/usercontacts', methods=['GET'])
+def usercontacts():
+    a = Archer()
+    a.login()
+    usercontacts = a.getUserContacts()
+    a.logout()
+    return usercontacts
+
+
 @app.route('/groups', methods=['GET'])
 def groups():
     a = Archer()
@@ -45,6 +54,22 @@ def roles():
     a = Archer()
     a.login()
     roles = a.getRoles()
+    a.logout()
+    return roles
+
+@app.route('/groupmemberships', methods=['GET'])
+def groupmemberships():
+    a = Archer()
+    a.login()
+    groups = a.getGroupMemberships()
+    a.logout()
+    return groups
+
+@app.route('/rolememberships', methods=['GET'])
+def rolememberships():
+    a = Archer()
+    a.login()
+    roles = a.getRoleMemberships()
     a.logout()
     return roles
 

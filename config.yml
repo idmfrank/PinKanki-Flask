@@ -2,5 +2,8 @@ Resources:
   Login: /RSAarcher/platformapi/core/security/login
   Logout: /RSAarcher/platformapi/core/security/logout
   User: /RSAarcher/platformapi/core/system/user
+  UserContact: /RSAarcher/platformapi/core/system/usercontact
   Role: /RSAarcher/platformapi/core/system/role
   Group: /RSAarcher/platformapi/core/system/group
+  RoleMembership: /RSAarcher/platformapi/core/system/rolemembership
+  GroupMembership: /RSAarcher/platformapi/core/system/groupmembership  
