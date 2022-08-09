@@ -4,7 +4,7 @@ app = Flask(__name__)
 @app.route('/hello', methods=['GET'])
 def hello():
     # suppose you have your data in the variable name_data
-    name_data = { "firstName": "Frank", "lastName": "Wray" }
+    name_data = { "firstName": "PinKanki", "lastName": "Flask" }
 
     # you can convert that variable into a json string like this
     json_text = jsonify(name_data)
