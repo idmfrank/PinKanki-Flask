@@ -10,6 +10,8 @@ app = Flask(__name__)
 # creating an API object
 api = Api(app)
 
+api_url = "https://random-data-api.com/api/users/random_user"
+
 # making a class for a particular resource
 # the get, post methods correspond to get and post requests
 # they are automatically mapped by flask_restful.
@@ -31,31 +33,30 @@ class Main(Resource):
   
   
 # another resource to calculate the square of a number
-class User(Resource):
+class UserField(Resource):
     
-    def get(self, userName):
+    def get(self, fieldName):
       
-        api_url = "https://randomuser.me/api/"
         response = requests.get(api_url)
         data = response.json()
-        retValue = json_extract(data, 'username')
+        retValue = json_extract(data, fieldName)
         return retValue
 
 class UserData(Resource):
     
     def get(self):
       
-        api_url = "https://randomuser.me/api/"
         response = requests.get(api_url)
         data = response.json()
-        return data
-
+        fieldList = []
+        for key in data:
+          fieldList.append(key)
+        return fieldList
   
 # adding the defined resources along with their corresponding urls
 api.add_resource(Main, '/')
-api.add_resource(User, '/user/<userName>')
+api.add_resource(UserField, '/userdata/<fieldName>')
 api.add_resource(UserData, '/userdata')
-  
   
 # driver function
 if __name__ == '__main__':
