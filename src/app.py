@@ -42,7 +42,7 @@ class UserField(Resource):
         retValue = json_extract(data, fieldName)
         return retValue
 
-class UserData(Resource):
+class UserFieldList(Resource):
     
     def get(self):
       
@@ -52,10 +52,19 @@ class UserData(Resource):
         for key in data:
           fieldList.append(key)
         return fieldList
-  
+
+class UserData(Resource):
+    
+    def get(self):
+      
+        response = requests.get(api_url)
+        data = response.json()
+        return data
+      
 # adding the defined resources along with their corresponding urls
 api.add_resource(Main, '/')
 api.add_resource(UserField, '/userdata/<fieldName>')
+api.add_resource(UserFieldList, '/userdata/fieldlist')
 api.add_resource(UserData, '/userdata')
   
 # driver function
